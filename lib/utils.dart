@@ -3,6 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'page/firebase/login_page.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 //RGBO
 const scaffoldbg = Color.fromRGBO(245, 245, 245, 1);
@@ -80,5 +83,125 @@ class AuthService {
 //Sign out
   signOut() {
     FirebaseAuth.instance.signOut();
+  }
+}
+
+//Service
+Future<Album> fetchAlbum() async {
+  const starturl = 'https://api.themoviedb.org/3/movie/';
+  const endpoint = '111';
+  const lasturl = '?api_key=62da2ccde4fec045442969ffaa982e6e';
+
+  final response = await http.get(Uri.parse(starturl + endpoint + lasturl));
+
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.
+    return Album.fromJson(jsonDecode(response.body));
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load');
+  }
+}
+
+//Class Model
+class Album {
+  final String overview;
+  final String title;
+  final String poster;
+
+  const Album({
+    required this.overview,
+    required this.title,
+    required this.poster,
+  });
+
+  factory Album.fromJson(Map<String, dynamic> e) {
+    return Album(
+      overview: e['overview'],
+      title: e['original_title'],
+      poster: e['poster_path'],
+    );
+  }
+}
+
+//Service
+Future<Alone> fetchAlone() async {
+  const starturl = 'https://api.themoviedb.org/3/movie/';
+  const endpoint = '222';
+  const lasturl = '?api_key=62da2ccde4fec045442969ffaa982e6e';
+
+  final response = await http.get(Uri.parse(starturl + endpoint + lasturl));
+
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.
+    return Alone.fromJson(jsonDecode(response.body));
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load');
+  }
+}
+
+//Class Model
+class Alone {
+  final String overview;
+  final String title;
+  final String poster;
+
+  const Alone({
+    required this.overview,
+    required this.title,
+    required this.poster,
+  });
+
+  factory Alone.fromJson(Map<String, dynamic> e) {
+    return Alone(
+      overview: e['overview'],
+      title: e['original_title'],
+      poster: e['poster_path'],
+    );
+  }
+}
+
+//Service
+Future<Altwo> fetchAltwo() async {
+  const starturl = 'https://api.themoviedb.org/3/movie/';
+  const endpoint = '620';
+  const lasturl = '?api_key=62da2ccde4fec045442969ffaa982e6e';
+
+  final response = await http.get(Uri.parse(starturl + endpoint + lasturl));
+
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.
+    return Altwo.fromJson(jsonDecode(response.body));
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load');
+  }
+}
+
+//Class Model
+class Altwo {
+  final String overview;
+  final String title;
+  final String poster;
+
+  const Altwo({
+    required this.overview,
+    required this.title,
+    required this.poster,
+  });
+
+  factory Altwo.fromJson(Map<String, dynamic> e) {
+    return Altwo(
+      overview: e['overview'],
+      title: e['original_title'],
+      poster: e['poster_path'],
+    );
   }
 }

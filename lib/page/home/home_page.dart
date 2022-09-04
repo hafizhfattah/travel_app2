@@ -16,6 +16,18 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   bool isTapped = false;
 
+  late Future<Album> futureAlbum;
+  late Future<Alone> futureAlone;
+  late Future<Altwo> futureAltwo;
+
+  @override
+  void initState() {
+    super.initState();
+    futureAlbum = fetchAlbum();
+    futureAlone = fetchAlone();
+    futureAltwo = fetchAltwo();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -451,7 +463,6 @@ class _HomePageState extends State<HomePage> {
                           },
                         ),
                       ),
-
                       // Expanded(
                       //   child: TextField(
                       //     style: GoogleFonts.montserrat(
@@ -1040,30 +1051,6 @@ class _HomePageState extends State<HomePage> {
                                       child: ElevatedButton(
                                         onPressed: () {
                                           Navigator.pop(context);
-
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(SnackBar(
-                                            dismissDirection:
-                                                DismissDirection.up,
-                                            duration:
-                                                const Duration(seconds: 2),
-                                            backgroundColor: black,
-                                            shape: const RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(10))),
-                                            behavior: SnackBarBehavior.floating,
-                                            action: SnackBarAction(
-                                                label: 'Undo',
-                                                onPressed: () {}),
-                                            elevation: 0,
-                                            content: Text(
-                                              'Closed',
-                                              style: GoogleFonts.montserrat(
-                                                  color: white,
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w500),
-                                            ),
-                                          ));
                                         },
                                         style: ElevatedButton.styleFrom(
                                             backgroundColor: Colors.black,
@@ -1109,220 +1096,349 @@ class _HomePageState extends State<HomePage> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).pushReplacementNamed('/detail');
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.all(2),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 16),
-                        height: 210,
-                        width: 200,
-                        decoration: const BoxDecoration(
-                          color: white,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(
-                              16.0,
-                            ),
+                    Container(
+                      margin: const EdgeInsets.all(2),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 16),
+                      height: 210,
+                      width: 200,
+                      decoration: const BoxDecoration(
+                        color: white,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(
+                            16.0,
                           ),
                         ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 88,
-                              width: double.maxFinite,
-                              child: Container(
-                                decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                    image: NetworkImage(
-                                      "https://picsum.photos/1000",
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 88,
+                            width: double.maxFinite,
+                            child: FutureBuilder<Album>(
+                              future: futureAlbum,
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: NetworkImage(
+                                          "https://image.tmdb.org/t/p/w500${snapshot.data!.poster}",
+                                        ),
+                                        fit: BoxFit.cover,
+                                      ),
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(
+                                          16.0,
+                                        ),
+                                      ),
                                     ),
-                                    fit: BoxFit.cover,
-                                  ),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(
-                                      16.0,
+                                  );
+                                } else if (snapshot.hasError) {
+                                  return Text('${snapshot.error}');
+                                }
+                                return const CircularProgressIndicator
+                                    .adaptive();
+                              },
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Flexible(
+                            child: FutureBuilder<Album>(
+                              future: futureAlbum,
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  return Text(
+                                    snapshot.data!.title,
+                                    style: GoogleFonts.montserrat(
+                                      color: black,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15,
+                                      fontStyle: FontStyle.normal,
                                     ),
-                                  ),
-                                ),
-                              ),
+                                  );
+                                } else if (snapshot.hasError) {
+                                  return Text(
+                                    '${snapshot.error}',
+                                    style: GoogleFonts.montserrat(
+                                      color: black,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15,
+                                      fontStyle: FontStyle.normal,
+                                    ),
+                                  );
+                                }
+                                return const CircularProgressIndicator
+                                    .adaptive();
+                              },
                             ),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            Flexible(
-                              child: Text(
-                                'Tokyo, Jepang',
-                                style: GoogleFonts.montserrat(
-                                  color: black,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 15,
-                                  fontStyle: FontStyle.normal,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              'Di desa Bulak terdapat wisata Banjar Indah, tepatnya di pinggir jalan raya Jatibarang - Karangampel. Di tempat ini terdapat kelompok kera yang sangat dikeramatkan. Bahkan jumlah monyet ini tidak pernah kurang atau lebih dari 41 ekor. Tempat ini dijadikan sebagai tempat wisata yang selalu ramai dikunjungi orang saat Hari Raya Idul Fitri ataupun Idul Adha',
-                              overflow: TextOverflow.fade,
-                              maxLines: 3,
-                              style: GoogleFonts.montserrat(
-                                  color: greyfortext,
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ],
-                        ),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          FutureBuilder<Album>(
+                            future: futureAlbum,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return Text(
+                                  snapshot.data!.overview,
+                                  overflow: TextOverflow.fade,
+                                  maxLines: 3,
+                                  style: GoogleFonts.montserrat(
+                                      color: greyfortext,
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w500),
+                                );
+                              } else if (snapshot.hasError) {
+                                return Text(
+                                  '${snapshot.error}',
+                                  overflow: TextOverflow.fade,
+                                  maxLines: 3,
+                                  style: GoogleFonts.montserrat(
+                                      color: greyfortext,
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w500),
+                                );
+                              }
+                              return const CircularProgressIndicator.adaptive();
+                            },
+                          ),
+                        ],
                       ),
                     ),
                     const SizedBox(
                       width: 16,
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).pushReplacementNamed('/detail');
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.all(2),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 16),
-                        height: 210,
-                        width: 200,
-                        decoration: const BoxDecoration(
-                          color: white,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(
-                              16.0,
-                            ),
+                    Container(
+                      margin: const EdgeInsets.all(2),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 16),
+                      height: 210,
+                      width: 200,
+                      decoration: const BoxDecoration(
+                        color: white,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(
+                            16.0,
                           ),
                         ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 88,
-                              width: double.maxFinite,
-                              child: Container(
-                                decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                    image: NetworkImage(
-                                      "https://picsum.photos/1000",
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 88,
+                            width: double.maxFinite,
+                            child: FutureBuilder<Alone>(
+                              future: futureAlone,
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: NetworkImage(
+                                          "https://image.tmdb.org/t/p/w500${snapshot.data!.poster}",
+                                        ),
+                                        fit: BoxFit.cover,
+                                      ),
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(
+                                          16.0,
+                                        ),
+                                      ),
                                     ),
-                                    fit: BoxFit.cover,
-                                  ),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(
-                                      16.0,
+                                  );
+                                } else if (snapshot.hasError) {
+                                  return Text('${snapshot.error}');
+                                }
+                                return const CircularProgressIndicator
+                                    .adaptive();
+                              },
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Flexible(
+                            child: FutureBuilder<Alone>(
+                              future: futureAlone,
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  return Text(
+                                    snapshot.data!.title,
+                                    style: GoogleFonts.montserrat(
+                                      color: black,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15,
+                                      fontStyle: FontStyle.normal,
                                     ),
-                                  ),
-                                ),
-                              ),
+                                  );
+                                } else if (snapshot.hasError) {
+                                  return Text(
+                                    '${snapshot.error}',
+                                    style: GoogleFonts.montserrat(
+                                      color: black,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15,
+                                      fontStyle: FontStyle.normal,
+                                    ),
+                                  );
+                                }
+                                return const CircularProgressIndicator
+                                    .adaptive();
+                              },
                             ),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            Flexible(
-                              child: Text(
-                                'Havana, Kuba',
-                                style: GoogleFonts.montserrat(
-                                  color: black,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 15,
-                                  fontStyle: FontStyle.normal,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              'Di desa Bulak terdapat wisata Banjar Indah, tepatnya di pinggir jalan raya Jatibarang - Karangampel. Di tempat ini terdapat kelompok kera yang sangat dikeramatkan. Bahkan jumlah monyet ini tidak pernah kurang atau lebih dari 41 ekor. Tempat ini dijadikan sebagai tempat wisata yang selalu ramai dikunjungi orang saat Hari Raya Idul Fitri ataupun Idul Adha',
-                              overflow: TextOverflow.fade,
-                              maxLines: 3,
-                              style: GoogleFonts.montserrat(
-                                  color: greyfortext,
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ],
-                        ),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          FutureBuilder<Alone>(
+                            future: futureAlone,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return Text(
+                                  snapshot.data!.overview,
+                                  overflow: TextOverflow.fade,
+                                  maxLines: 3,
+                                  style: GoogleFonts.montserrat(
+                                      color: greyfortext,
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w500),
+                                );
+                              } else if (snapshot.hasError) {
+                                return Text(
+                                  '${snapshot.error}',
+                                  overflow: TextOverflow.fade,
+                                  maxLines: 3,
+                                  style: GoogleFonts.montserrat(
+                                      color: greyfortext,
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w500),
+                                );
+                              }
+                              return const CircularProgressIndicator.adaptive();
+                            },
+                          ),
+                        ],
                       ),
                     ),
                     const SizedBox(
                       width: 16,
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).pushReplacementNamed('/detail');
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.all(2),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 16),
-                        height: 210,
-                        width: 200,
-                        decoration: const BoxDecoration(
-                          color: white,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(
-                              16.0,
-                            ),
+                    Container(
+                      margin: const EdgeInsets.all(2),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 16),
+                      height: 210,
+                      width: 200,
+                      decoration: const BoxDecoration(
+                        color: white,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(
+                            16.0,
                           ),
                         ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 88,
-                              width: double.maxFinite,
-                              child: Container(
-                                decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                    image: NetworkImage(
-                                      "https://picsum.photos/1000",
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 88,
+                            width: double.maxFinite,
+                            child: FutureBuilder<Altwo>(
+                              future: futureAltwo,
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: NetworkImage(
+                                          "https://image.tmdb.org/t/p/w500${snapshot.data!.poster}",
+                                        ),
+                                        fit: BoxFit.cover,
+                                      ),
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(
+                                          16.0,
+                                        ),
+                                      ),
                                     ),
-                                    fit: BoxFit.cover,
-                                  ),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(
-                                      16.0,
+                                  );
+                                } else if (snapshot.hasError) {
+                                  return Text('${snapshot.error}');
+                                }
+                                return const CircularProgressIndicator
+                                    .adaptive();
+                              },
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Flexible(
+                            child: FutureBuilder<Altwo>(
+                              future: futureAltwo,
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  return Text(
+                                    snapshot.data!.title,
+                                    style: GoogleFonts.montserrat(
+                                      color: black,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15,
+                                      fontStyle: FontStyle.normal,
                                     ),
-                                  ),
-                                ),
-                              ),
+                                  );
+                                } else if (snapshot.hasError) {
+                                  return Text(
+                                    '${snapshot.error}',
+                                    style: GoogleFonts.montserrat(
+                                      color: black,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15,
+                                      fontStyle: FontStyle.normal,
+                                    ),
+                                  );
+                                }
+                                return const CircularProgressIndicator
+                                    .adaptive();
+                              },
                             ),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            Flexible(
-                              child: Text(
-                                'Moskow, Rusia',
-                                style: GoogleFonts.montserrat(
-                                  color: black,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 15,
-                                  fontStyle: FontStyle.normal,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              'Di desa Bulak terdapat wisata Banjar Indah, tepatnya di pinggir jalan raya Jatibarang - Karangampel. Di tempat ini terdapat kelompok kera yang sangat dikeramatkan. Bahkan jumlah monyet ini tidak pernah kurang atau lebih dari 41 ekor. Tempat ini dijadikan sebagai tempat wisata yang selalu ramai dikunjungi orang saat Hari Raya Idul Fitri ataupun Idul Adha',
-                              overflow: TextOverflow.fade,
-                              maxLines: 3,
-                              style: GoogleFonts.montserrat(
-                                  color: greyfortext,
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ],
-                        ),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          FutureBuilder<Altwo>(
+                            future: futureAltwo,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return Text(
+                                  snapshot.data!.overview,
+                                  overflow: TextOverflow.fade,
+                                  maxLines: 3,
+                                  style: GoogleFonts.montserrat(
+                                      color: greyfortext,
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w500),
+                                );
+                              } else if (snapshot.hasError) {
+                                return Text(
+                                  '${snapshot.error}',
+                                  overflow: TextOverflow.fade,
+                                  maxLines: 3,
+                                  style: GoogleFonts.montserrat(
+                                      color: greyfortext,
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w500),
+                                );
+                              }
+                              return const CircularProgressIndicator.adaptive();
+                            },
+                          ),
+                        ],
                       ),
                     ),
                   ],

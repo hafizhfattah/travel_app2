@@ -1,7 +1,20 @@
-# firebase_methode
+# Maverus F.M Fiture:
 
-A new Flutter project.
+- Icon App
+- Name App 
+- Firebase Auth Login & Logout With Gmail
+- UI Lebih Dari Design Asli (Figma)
+- AutoComplete Search List Name
+- GMaps (Web Prev)
+- Hide & Show Pass
+- GET Data From Firebase
+- GET API 
+- Animation UI
+- Navigation Page
+- Responsive UI
+- Edit Profile 1/2
 
 ## Getting Started
 
-Firebase name: firebase-methode
+- run flutter pub get
+- ios emulator Ready
