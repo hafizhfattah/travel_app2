@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "708403892509",
+    "project_id": "fir-methode",
+    "storage_bucket": "fir-methode.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:708403892509:android:49b9d4bebaacc25f1b91f4",
+        "android_client_info": {
+          "package_name": "com.example.firebase_methode"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "708403892509-mv5pnifem1dk8d8781iel21sruhr4ekb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5W_kvGlQnvFfjr1K33hxjIOE4Gg3jHPA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "708403892509-mv5pnifem1dk8d8781iel21sruhr4ekb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "708403892509-p3s08s4sn8809bvjo1qcpd2s946h0qqd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.firebaseMethode"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
