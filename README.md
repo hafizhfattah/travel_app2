@@ -12,9 +12,9 @@
 - Animation UI
 - Navigation Page
 - Responsive UI
-- Edit Profile 1/2
+- Edit Profile Input 1/2
 
 ## Getting Started
 
-- run flutter pub get
-- ios emulator Ready
+- Run flutter pub get
+- IOS Emulator Ready
