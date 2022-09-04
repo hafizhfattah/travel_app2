@@ -56,7 +56,7 @@ class _OpeningScreenState extends State<OpeningScreen> {
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(CupertinoIcons.person),
-                  label: 'profile',
+                  label: 'Profile',
                   backgroundColor: black,
                 ),
               ]),
