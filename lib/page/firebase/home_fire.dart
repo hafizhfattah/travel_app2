@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../utils.dart';
-import '../other/splash_screen.dart';
 
 class HomeFire extends StatefulWidget {
   const HomeFire({super.key});
@@ -72,13 +71,8 @@ class _HomeFireState extends State<HomeFire> {
                         fontWeight: FontWeight.w500,
                         color: blue),
                   ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SplashScreen()),
-                    );
-                  },
+                  onPressed: () =>
+                      Navigator.of(context).pushReplacementNamed('/splash'),
                 ),
               ],
             ),

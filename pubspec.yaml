@@ -9,26 +9,34 @@ dependencies:
   flutter:
     sdk: flutter
 
+  #Firebase
+  firebase_core: ^1.21.1
+  google_sign_in: ^5.4.1
+  firebase_auth: ^3.7.0
+
   #Utils
   cupertino_icons: ^1.0.2
   google_fonts: ^3.0.1
   webview_flutter: ^3.0.4
   path_provider: ^2.0.11
-
-  #Firebase
-  firebase_core: ^1.21.1
-  google_sign_in: ^5.4.1
-  firebase_auth: ^3.7.0
+  flutter_launcher_icons: ^0.10.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
 
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/applogo.jpg"
+  min_sdk_android: 21
+
 flutter:
   uses-material-design: true
   assets:
     - assets/awards.png
     - assets/wallet.png
+    - assets/applogo.jpg
 
 

@@ -2,7 +2,7 @@
     package="com.example.firebase_methode">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="firebase_methode"
+        android:label="Maveruz F.M"
         android:usesCleartextTraffic="true"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
