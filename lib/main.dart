@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       themeMode: ThemeMode.system,
-      debugShowCheckedModeBanner: true,
+      debugShowCheckedModeBanner: false,
       home: AuthService().handleAuthState(),
       initialRoute: '/',
       routes: <String, WidgetBuilder>{
