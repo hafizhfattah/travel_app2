@@ -1,5 +1,9 @@
-## Maverus F.M Fiture:
+### 📦 **Maveruz FM**
 
+MaveruzFM Is A ComplexApp With Many Function With Minimal Design
+Made With Flutter
+
+### 🎁 **Fiture**
 - Icon App
 - Name App 
 - Firebase Auth Login & Logout With Gmail
@@ -13,7 +17,38 @@
 - Responsive UI
 - Edit Profile Input 1/2
 
-## Getting Started
+### 🎖  **Installing**
+```
+dependencies:
+  flutter:
+    sdk: flutter
 
-- Run flutter pub get
-- IOS Emulator Ready
+  #Firebase
+  firebase_core: ^1.21.1
+  google_sign_in: ^5.4.1
+  firebase_auth: ^3.7.0
+
+  #Utils
+  cupertino_icons: ^1.0.2
+  google_fonts: ^3.0.1
+  webview_flutter: ^3.0.4
+  path_provider: ^2.0.11
+  flutter_launcher_icons: ^0.10.0
+  http: ^0.13.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/applogo.jpg"
+  min_sdk_android: 21
+```
+
+### 🚀 **Getting Started**
+1. Clone this project || Download Zip from GitHub
+2. Run `flutter pub get` In Terminal
+3. Run the project In Web or Emulator
