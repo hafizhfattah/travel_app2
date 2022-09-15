@@ -3,7 +3,6 @@
 - Icon App
 - Name App 
 - Firebase Auth Login & Logout With Gmail
-- UI Lebih Dari Design Asli (Figma)
 - AutoComplete Search List Name
 - GMaps (Web Prev)
 - Hide & Show Pass
