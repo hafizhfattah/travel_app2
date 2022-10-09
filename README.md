@@ -1,6 +1,6 @@
 ### 📦 **Travel App 2**
 
-a Inspiration Travel App with Complex Fiture with Name Maveruz
+a Inspiration Travel App with Complex Fiture with Name Maveruz.
 
 ### 🎁 **Fiture**
 - Icon App
